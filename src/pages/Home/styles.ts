@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css, keyframes, Keyframes } from 'styled-components'
 
 export const Container = styled.div`
   max-width: 700px;
@@ -26,7 +26,7 @@ export const Form = styled.form`
     background-color: transparent;
     border: 1px solid #333;
     border-radius: 4px;
-    transition: all 0.2s ease-out;
+    transition: all 0.1s ease-out;
 
     &:focus {
       border-color: #888;
@@ -34,14 +34,42 @@ export const Form = styled.form`
   }
 `
 
-export const SubmitButton = styled.button`
+interface SubmitButtonProps {
+  loading: boolean
+}
+
+const spinnerAnimation = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`
+
+export const SubmitButton = styled.button<SubmitButtonProps>`
   background-color: #bbdefb;
   border: none;
   border-radius: 4px;
   padding: 0 0.75rem;
-  transition: background 0.1s ease-out;
+  transition: all 0.1s ease-out;
 
   &:hover {
     background-color: #64b5f6;
+  }
+
+  &:active {
+    transform: scale(1.05);
+  }
+
+  ${props =>
+    props.loading &&
+    css`
+      cursor: not-allowed;
+      opacity: 0.6;
+    `}
+
+  .spinner {
+    animation: ${spinnerAnimation} 1s linear infinite;
   }
 `
