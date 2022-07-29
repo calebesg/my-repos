@@ -9,5 +9,16 @@ export default createGlobalStyle`
 
   input, button, body {
     font-family: 'Roboto', sans-serif;
+    font-size: 0.875rem;
+    color: #fafafa;
+    outline: none;
+  }
+
+  body {
+    background-color: #121212;
+  }
+
+  button {
+    cursor: pointer;
   }
 `
