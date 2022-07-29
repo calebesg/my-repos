@@ -1,11 +1,12 @@
 import { FormEvent, useCallback, useState } from 'react'
 import { FaGithub, FaPlus, FaSpinner } from 'react-icons/fa'
+import { List } from '../../components/List'
 
 import api from '../../libs/api'
 
 import { Container, Form, SubmitButton } from './styles'
 
-interface Repo {
+export interface Repo {
   name: string
 }
 
@@ -27,15 +28,16 @@ export function Home() {
             name: response.data.full_name,
           }
 
-          setRepos([...repos, newRepo])
+          setRepos(oldRepos => [...oldRepos, newRepo])
+          setRepoName('')
         } finally {
           setLoading(false)
         }
       }
 
-      repoName && getRepo()
+      getRepo()
     },
-    [repoName, repos]
+    [repoName]
   )
 
   return (
@@ -61,6 +63,8 @@ export function Home() {
           )}
         </SubmitButton>
       </Form>
+
+      <List list={repos} />
     </Container>
   )
 }
