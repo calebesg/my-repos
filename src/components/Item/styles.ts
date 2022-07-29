@@ -18,11 +18,27 @@ export const Container = styled.li`
   }
 
   &:hover {
-    transform: scale(1.02);
+    transform: scale(1.01);
     background-color: #333;
 
     a {
       color: #fff;
     }
+  }
+`
+
+export const DeleteButton = styled.button.attrs({ type: 'button' })`
+  background-color: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.2);
+  transition: all 0.1s ease-out;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    color: #ff8fa3;
+    transform: scale(1.2);
   }
 `

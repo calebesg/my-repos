@@ -35,7 +35,7 @@ export const Form = styled.form`
 `
 
 interface SubmitButtonProps {
-  loading: boolean
+  isLoading: boolean
 }
 
 const spinnerAnimation = keyframes`
@@ -63,7 +63,7 @@ export const SubmitButton = styled.button<SubmitButtonProps>`
   }
 
   ${props =>
-    props.loading &&
+    props.isLoading &&
     css`
       cursor: not-allowed;
       opacity: 0.6;

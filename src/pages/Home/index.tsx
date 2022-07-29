@@ -18,9 +18,9 @@ export function Home() {
   const handleSubmit = useCallback(
     (e: FormEvent) => {
       e.preventDefault()
+      setLoading(true)
 
       async function getRepo() {
-        setLoading(true)
         try {
           const response = await api.get(`/repos/${repoName}`)
 
@@ -28,8 +28,10 @@ export function Home() {
             name: response.data.full_name,
           }
 
-          setRepos(oldRepos => [...oldRepos, newRepo])
+          setRepos([...repos, newRepo])
           setRepoName('')
+        } catch (error) {
+          console.error(error)
         } finally {
           setLoading(false)
         }
@@ -37,7 +39,15 @@ export function Home() {
 
       getRepo()
     },
-    [repoName]
+    [repoName, repos]
+  )
+
+  const handleDelete = useCallback(
+    (repoName: string) => {
+      const updateRepos = repos.filter(repo => repo.name !== repoName)
+      setRepos(updateRepos)
+    },
+    [repos]
   )
 
   return (
@@ -55,7 +65,7 @@ export function Home() {
           placeholder="Adicionar Repositório"
         />
 
-        <SubmitButton type="submit" loading={loading}>
+        <SubmitButton type="submit" isLoading={loading}>
           {loading ? (
             <FaSpinner className="spinner" color="#121212" size={14} />
           ) : (
@@ -64,7 +74,7 @@ export function Home() {
         </SubmitButton>
       </Form>
 
-      <List list={repos} />
+      <List onDeleteItem={handleDelete} list={repos} />
     </Container>
   )
 }
