@@ -12,12 +12,7 @@ export function List({ list, onDeleteItem }: ListProps) {
   return (
     <Container>
       {list.map((repo, index) => (
-        <Item
-          key={index}
-          text={repo.name}
-          onDelete={onDeleteItem}
-          url={repo.name}
-        />
+        <Item key={index} text={repo.name} onDelete={onDeleteItem} />
       ))}
     </Container>
   )

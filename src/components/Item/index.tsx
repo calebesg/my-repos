@@ -5,11 +5,10 @@ import { Container, DeleteButton } from './styles'
 
 interface Props {
   text: string
-  url: string
   onDelete: (name: string) => void
 }
 
-export function Item({ text, url, onDelete }: Props) {
+export function Item({ text, onDelete }: Props) {
   function handleDelete(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault()
     onDelete(text)
@@ -17,7 +16,7 @@ export function Item({ text, url, onDelete }: Props) {
 
   return (
     <Container>
-      <Link to="/oi">
+      <Link to={`/repo/${encodeURIComponent(text)}`}>
         <span>{text}</span>
 
         <DeleteButton onClick={handleDelete}>
