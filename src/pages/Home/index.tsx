@@ -1,4 +1,4 @@
-import { FormEvent, useCallback, useState } from 'react'
+import { ErrorInfo, FormEvent, useCallback, useState } from 'react'
 import { FaGithub, FaPlus, FaSpinner } from 'react-icons/fa'
 import { List } from '../../components/List'
 
@@ -14,33 +14,39 @@ export function Home() {
   const [repoName, setRepoName] = useState('')
   const [repos, setRepos] = useState<Repo[]>([])
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
   const handleSubmit = useCallback(
     (e: FormEvent) => {
       e.preventDefault()
-      setLoading(true)
-
-      async function getRepo() {
-        try {
-          const response = await api.get(`/repos/${repoName}`)
-
-          const newRepo: Repo = {
-            name: response.data.full_name,
-          }
-
-          setRepos([...repos, newRepo])
-          setRepoName('')
-        } catch (error) {
-          console.error(error)
-        } finally {
-          setLoading(false)
-        }
-      }
-
       getRepo()
     },
     [repoName, repos]
   )
+
+  async function getRepo() {
+    try {
+      if (!repoName) throw new Error('The field is empty!')
+
+      setLoading(true)
+      const response = await api.get(`/repos/${repoName}`)
+
+      const newRepo: Repo = {
+        name: response.data.full_name,
+      }
+
+      const hasRepo = repos.find(repo => repo.name === repoName)
+
+      if (hasRepo) throw new Error('This Repo is already registered!')
+
+      setRepos([...repos, newRepo])
+      setRepoName('')
+    } catch (error: any) {
+      setError(error.message)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   const handleDelete = useCallback(
     (repoName: string) => {
@@ -50,6 +56,11 @@ export function Home() {
     [repos]
   )
 
+  function handleChange(text: string) {
+    setError('')
+    setRepoName(text)
+  }
+
   return (
     <Container>
       <h1>
@@ -57,11 +68,12 @@ export function Home() {
         Meus Repositórios
       </h1>
 
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit} error={error}>
+        <span>{error}</span>
         <input
           type="text"
           value={repoName}
-          onChange={e => setRepoName(e.target.value)}
+          onChange={e => handleChange(e.target.value)}
           placeholder="Adicionar Repositório"
         />
 

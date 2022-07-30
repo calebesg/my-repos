@@ -10,10 +10,8 @@ interface Props {
 }
 
 export function Item({ text, url, onDelete }: Props) {
-  function handleClick(e: MouseEvent<HTMLButtonElement>) {
-    e.stopPropagation()
+  function handleDelete(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault()
-
     onDelete(text)
   }
 
@@ -22,7 +20,7 @@ export function Item({ text, url, onDelete }: Props) {
       <Link to="/oi">
         <span>{text}</span>
 
-        <DeleteButton onClick={handleClick}>
+        <DeleteButton onClick={handleDelete}>
           <FaTrash size={16} />
         </DeleteButton>
       </Link>
