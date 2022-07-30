@@ -1,4 +1,4 @@
-import { ErrorInfo, FormEvent, useCallback, useState } from 'react'
+import { FormEvent, useCallback, useEffect, useState } from 'react'
 import { FaGithub, FaPlus, FaSpinner } from 'react-icons/fa'
 import { List } from '../../components/List'
 
@@ -15,6 +15,22 @@ export function Home() {
   const [repos, setRepos] = useState<Repo[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+
+  useEffect(() => {
+    const storage = localStorage.getItem('@repos')
+
+    if (storage) {
+      setRepos(JSON.parse(storage))
+    }
+  }, [])
+
+  useEffect(() => {
+    const save = setTimeout(() => {
+      localStorage.setItem('@repos', JSON.stringify(repos))
+    }, 500)
+
+    return () => clearTimeout(save)
+  }, [repos])
 
   const handleSubmit = useCallback(
     (e: FormEvent) => {
