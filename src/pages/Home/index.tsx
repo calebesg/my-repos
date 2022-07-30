@@ -45,6 +45,7 @@ export function Home() {
       if (!repoName) throw new Error('The field is empty!')
 
       setLoading(true)
+
       const response = await api.get(`/repos/${repoName}`)
 
       const newRepo: Repo = {
