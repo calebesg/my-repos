@@ -4,7 +4,7 @@ import { FaArrowLeft } from 'react-icons/fa'
 
 import { Loading } from '../../components/Loading'
 import api from '../../libs/api'
-import { Container, Owner, GoBackButton } from './styles'
+import { Container, Owner, GoBackButton, List, Item } from './styles'
 
 interface Repo {
   name: string
@@ -15,9 +15,23 @@ interface Repo {
   }
 }
 
+interface Issue {
+  id: string
+  url: string
+  title: string
+  labels: {
+    id: string
+    name: string
+  }[]
+  user: {
+    name: string
+    avatarUrl: string
+  }
+}
+
 export function Repo() {
   const [repo, setRepo] = useState<Repo>()
-  const [issues, setIssues] = useState([])
+  const [issues, setIssues] = useState<Issue[]>([])
 
   const params = useParams()
 
@@ -44,8 +58,21 @@ export function Repo() {
         },
       }
 
+      const issuesSerialized = issuesData.data.map((issue: any) => {
+        return {
+          id: issue.id,
+          url: issue.html_url,
+          title: issue.title,
+          labels: issue.labels,
+          user: {
+            name: issue.user.login,
+            avatarUrl: issue.user.avatar_url,
+          },
+        }
+      })
+
       setRepo(repoSerialized)
-      setIssues(issuesData.data)
+      setIssues(issuesSerialized)
     }
 
     getRepoData()
@@ -79,6 +106,28 @@ export function Repo() {
         <h1>{repo.name}</h1>
         <p>{repo.description}</p>
       </Owner>
+
+      <List>
+        {issues.map(issue => (
+          <Item key={issue.id}>
+            <img src={issue.user.avatarUrl} alt={issue.user.name} />
+
+            <div className="content">
+              <a href={issue.url} target="_blank">
+                {issue.title}
+              </a>
+
+              {issue.labels.map(label => (
+                <span className="label" key={label.id}>
+                  {label.name}
+                </span>
+              ))}
+
+              <strong>{issue.user.name}</strong>
+            </div>
+          </Item>
+        ))}
+      </List>
     </Container>
   )
 }

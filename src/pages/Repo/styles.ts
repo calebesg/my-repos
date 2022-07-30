@@ -47,3 +47,54 @@ export const GoBackButton = styled(Link)`
     color: #bbdefb;
   }
 `
+
+export const List = styled.ul`
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid #333;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`
+
+export const Item = styled.li`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  img {
+    width: 56px;
+    height: 56px;
+    border-radius: 4px;
+  }
+
+  .content {
+    a {
+      text-decoration: none;
+      line-height: 1.4rem;
+      color: #fafafa;
+      transition: color 0.1s ease-out;
+
+      &:hover {
+        color: #64b5f6;
+      }
+    }
+
+    .label {
+      font-size: 0.675rem;
+      background-color: #121212;
+      color: #bbdefb;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      margin-left: 0.25rem;
+    }
+
+    strong {
+      color: #9f9f9f;
+      display: block;
+      font-size: 0.75rem;
+      font-weight: normal;
+      margin-top: 0.5rem;
+    }
+  }
+`
