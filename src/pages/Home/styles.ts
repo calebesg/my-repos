@@ -5,7 +5,7 @@ export const Container = styled.div`
   background-color: #1f1f1f;
   border-radius: 4px;
   padding: 2rem;
-  margin: 5rem auto;
+  margin: -8rem auto 2rem;
 
   h1 {
     font-size: 1.25rem;

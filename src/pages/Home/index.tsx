@@ -1,5 +1,6 @@
 import { FormEvent, useCallback, useEffect, useState } from 'react'
 import { FaGithub, FaPlus, FaSpinner } from 'react-icons/fa'
+import { Header } from '../../components/Header'
 import { List } from '../../components/List'
 
 import api from '../../libs/api'
@@ -79,31 +80,35 @@ export function Home() {
   }
 
   return (
-    <Container>
-      <h1>
-        <FaGithub size={24} />
-        Meus Repositórios
-      </h1>
+    <>
+      <Header />
 
-      <Form onSubmit={handleSubmit} error={error}>
-        <span>{error}</span>
-        <input
-          type="text"
-          value={repoName}
-          onChange={e => handleChange(e.target.value)}
-          placeholder="Adicionar Repositório"
-        />
+      <Container>
+        <h1>
+          <FaGithub size={24} />
+          Meus Repositórios
+        </h1>
 
-        <SubmitButton type="submit" isLoading={loading}>
-          {loading ? (
-            <FaSpinner className="spinner" color="#121212" size={14} />
-          ) : (
-            <FaPlus color="#121212" size={14} />
-          )}
-        </SubmitButton>
-      </Form>
+        <Form onSubmit={handleSubmit} error={error}>
+          <span>{error}</span>
+          <input
+            type="text"
+            value={repoName}
+            onChange={e => handleChange(e.target.value)}
+            placeholder="Adicionar Repositório"
+          />
 
-      <List onDeleteItem={handleDelete} list={repos} />
-    </Container>
+          <SubmitButton type="submit" isLoading={loading}>
+            {loading ? (
+              <FaSpinner className="spinner" color="#121212" size={14} />
+            ) : (
+              <FaPlus color="#121212" size={14} />
+            )}
+          </SubmitButton>
+        </Form>
+
+        <List onDeleteItem={handleDelete} list={repos} />
+      </Container>
+    </>
   )
 }

@@ -1,13 +1,12 @@
 import styled, { css } from 'styled-components'
 import { Link } from 'react-router-dom'
-import { FilterType } from '.'
 
 export const Container = styled.div`
   max-width: 700px;
   background-color: #1f1f1f;
   border-radius: 4px;
   padding: 2rem;
-  margin: 5rem auto;
+  margin: -8rem auto 2rem;
 `
 
 export const Owner = styled.header`

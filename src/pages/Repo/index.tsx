@@ -14,6 +14,7 @@ import {
   Filter,
   FilterButton,
 } from './styles'
+import { Header } from '../../components/Header'
 
 interface Repo {
   name: string
@@ -140,77 +141,81 @@ export function Repo() {
   }
 
   return (
-    <Container>
-      <GoBackButton to="/">
-        <FaArrowLeft size={20} />
-        Go Back
-      </GoBackButton>
+    <>
+      <Header />
 
-      <Owner>
-        <img src={repo.owner.avatarUrl} alt={repo.owner.name} />
-        <h1>{repo.name}</h1>
-        <p>{repo.description}</p>
-      </Owner>
+      <Container>
+        <GoBackButton to="/">
+          <FaArrowLeft size={20} />
+          Go Back
+        </GoBackButton>
 
-      <Filter>
-        <FilterButton
-          onClick={() => handleChangeFilter('all')}
-          active={filter === 'all'}
-        >
-          All
-        </FilterButton>
-        <FilterButton
-          onClick={() => handleChangeFilter('open')}
-          active={filter === 'open'}
-        >
-          Open
-        </FilterButton>
-        <FilterButton
-          onClick={() => handleChangeFilter('closed')}
-          active={filter === 'closed'}
-        >
-          Close
-        </FilterButton>
-      </Filter>
+        <Owner>
+          <img src={repo.owner.avatarUrl} alt={repo.owner.name} />
+          <h1>{repo.name}</h1>
+          <p>{repo.description}</p>
+        </Owner>
 
-      <List>
-        {issues.map(issue => (
-          <Item key={issue.id}>
-            <img src={issue.user.avatarUrl} alt={issue.user.name} />
+        <Filter>
+          <FilterButton
+            onClick={() => handleChangeFilter('all')}
+            active={filter === 'all'}
+          >
+            All
+          </FilterButton>
+          <FilterButton
+            onClick={() => handleChangeFilter('open')}
+            active={filter === 'open'}
+          >
+            Open
+          </FilterButton>
+          <FilterButton
+            onClick={() => handleChangeFilter('closed')}
+            active={filter === 'closed'}
+          >
+            Close
+          </FilterButton>
+        </Filter>
 
-            <div className="content">
-              <a href={issue.url} target="_blank">
-                {issue.title}
-              </a>
+        <List>
+          {issues.map(issue => (
+            <Item key={issue.id}>
+              <img src={issue.user.avatarUrl} alt={issue.user.name} />
 
-              {issue.labels.map(label => (
-                <span className="label" key={label.id}>
-                  {label.name}
-                </span>
-              ))}
+              <div className="content">
+                <a href={issue.url} target="_blank">
+                  {issue.title}
+                </a>
 
-              <strong>{issue.user.name}</strong>
-            </div>
-          </Item>
-        ))}
-      </List>
+                {issue.labels.map(label => (
+                  <span className="label" key={label.id}>
+                    {label.name}
+                  </span>
+                ))}
 
-      <Pagination>
-        <button
-          onClick={() => handleChangePage(page - 1)}
-          disabled={page === 1}
-        >
-          <FaArrowLeft size={16} />
-          {`Back ${page - 1}`}
-        </button>
+                <strong>{issue.user.name}</strong>
+              </div>
+            </Item>
+          ))}
+        </List>
 
-        <span>{page}</span>
+        <Pagination>
+          <button
+            onClick={() => handleChangePage(page - 1)}
+            disabled={page === 1}
+          >
+            <FaArrowLeft size={16} />
+            {`Back ${page - 1}`}
+          </button>
 
-        <button onClick={() => handleChangePage(page + 1)}>
-          {`Next ${page + 1}`}
-          <FaArrowRight size={16} />
-        </button>
-      </Pagination>
-    </Container>
+          <span>{page}</span>
+
+          <button onClick={() => handleChangePage(page + 1)}>
+            {`Next ${page + 1}`}
+            <FaArrowRight size={16} />
+          </button>
+        </Pagination>
+      </Container>
+    </>
   )
 }
