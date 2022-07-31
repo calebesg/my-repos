@@ -1,5 +1,6 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { Link } from 'react-router-dom'
+import { FilterType } from '.'
 
 export const Container = styled.div`
   max-width: 700px;
@@ -48,8 +49,33 @@ export const GoBackButton = styled(Link)`
   }
 `
 
+export const Filter = styled.div`
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.5rem;
+`
+
+interface FilterButtonProps {
+  active: boolean
+}
+
+export const FilterButton = styled.button<FilterButtonProps>`
+  background-color: #333;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  transition: all 0.1s ease-out;
+
+  ${props =>
+    props.active &&
+    css`
+      background-color: #bbdefb;
+      color: #121212;
+    `};
+`
+
 export const List = styled.ul`
-  margin-top: 2rem;
+  margin-top: 0.75rem;
   padding-top: 2rem;
   border-top: 1px solid #333;
   display: flex;

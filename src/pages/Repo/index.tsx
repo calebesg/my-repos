@@ -11,6 +11,8 @@ import {
   List,
   Item,
   Pagination,
+  Filter,
+  FilterButton,
 } from './styles'
 
 interface Repo {
@@ -36,19 +38,22 @@ interface Issue {
   }
 }
 
+export type FilterType = 'open' | 'closed' | 'all'
+
 export function Repo() {
   const [repo, setRepo] = useState<Repo>()
   const [issues, setIssues] = useState<Issue[]>([])
   const [page, setPage] = useState(1)
+  const [filter, setFilter] = useState<FilterType>('open')
 
   const params = useParams()
 
-  function fetchIssues(state = 'open', page = 1) {
+  function fetchIssues() {
     const repoName = params?.repo || null
 
     return api.get(`/repos/${repoName}/issues`, {
       params: {
-        state,
+        state: filter,
         page,
         per_page: 5,
       },
@@ -72,14 +77,14 @@ export function Repo() {
 
   useEffect(() => {
     async function getIssues() {
-      const response = await fetchIssues('open', page)
+      const response = await fetchIssues()
       const issuesSerialized = issuesJsonToObject(response.data)
 
       setIssues(issuesSerialized)
     }
 
     getIssues()
-  }, [page])
+  }, [page, filter])
 
   useEffect(() => {
     async function getRepoData() {
@@ -113,6 +118,11 @@ export function Repo() {
     setPage(newPage)
   }
 
+  function handleChangeFilter(type: FilterType) {
+    handleChangePage(1)
+    setFilter(type)
+  }
+
   if (!repo) {
     return (
       <div
@@ -141,6 +151,27 @@ export function Repo() {
         <h1>{repo.name}</h1>
         <p>{repo.description}</p>
       </Owner>
+
+      <Filter>
+        <FilterButton
+          onClick={() => handleChangeFilter('all')}
+          active={filter === 'all'}
+        >
+          All
+        </FilterButton>
+        <FilterButton
+          onClick={() => handleChangeFilter('open')}
+          active={filter === 'open'}
+        >
+          Open
+        </FilterButton>
+        <FilterButton
+          onClick={() => handleChangeFilter('closed')}
+          active={filter === 'closed'}
+        >
+          Close
+        </FilterButton>
+      </Filter>
 
       <List>
         {issues.map(issue => (
