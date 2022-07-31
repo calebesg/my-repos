@@ -98,3 +98,42 @@ export const Item = styled.li`
     }
   }
 `
+
+export const Pagination = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+
+  button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: transparent;
+    border: none;
+    transition: all 0.1s ease-out;
+    color: #9f9f9f;
+
+    &:hover {
+      color: #bbdefb;
+    }
+
+    &:disabled {
+      opacity: 0;
+      cursor: default;
+    }
+  }
+
+  span {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background-color: #bbdefb;
+    color: #000;
+    font-size: 1rem;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+`
