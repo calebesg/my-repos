@@ -13,6 +13,10 @@ export const Container = styled.div`
     align-items: center;
     gap: 0.625rem;
   }
+
+  @media (max-width: 600px) {
+    width: 90%;
+  }
 `
 
 interface FormProps {

@@ -146,7 +146,7 @@ export function Repo() {
 
       <Container>
         <GoBackButton to="/">
-          <FaArrowLeft size={20} />
+          <FaArrowLeft />
           Go Back
         </GoBackButton>
 

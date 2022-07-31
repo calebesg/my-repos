@@ -7,6 +7,10 @@ export const Container = styled.div`
   border-radius: 4px;
   padding: 2rem;
   margin: -8rem auto 2rem;
+
+  @media (max-width: 600px) {
+    width: 90%;
+  }
 `
 
 export const Owner = styled.header`
@@ -32,6 +36,17 @@ export const Owner = styled.header`
     text-align: center;
     line-height: 1.5rem;
   }
+
+  @media (max-width: 600px) {
+    img {
+      width: 6rem;
+      margin-top: 1rem;
+    }
+
+    h1 {
+      font-size: 1.75rem;
+    }
+  }
 `
 
 export const GoBackButton = styled(Link)`
@@ -52,6 +67,11 @@ export const Filter = styled.div`
   margin-top: 1rem;
   display: flex;
   gap: 0.5rem;
+
+  @media (max-width: 600px) {
+    justify-content: center;
+    margin-top: 1.25rem;
+  }
 `
 
 interface FilterButtonProps {
@@ -80,6 +100,10 @@ export const List = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+
+  @media (max-width: 600px) {
+    margin-top: 1.25rem;
+  }
 `
 
 export const Item = styled.li`
@@ -120,6 +144,27 @@ export const Item = styled.li`
       font-size: 0.75rem;
       font-weight: normal;
       margin-top: 0.5rem;
+    }
+  }
+
+  @media (max-width: 600px) {
+    align-items: flex-start;
+    gap: 0.5rem;
+
+    img {
+      width: 3rem;
+      height: 3rem;
+    }
+
+    .content {
+      a {
+        font-size: 13px;
+        line-height: 1rem;
+      }
+
+      strong {
+        margin-top: 0.25rem;
+      }
     }
   }
 `
