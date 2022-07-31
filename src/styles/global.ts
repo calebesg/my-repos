@@ -16,6 +16,17 @@ export default createGlobalStyle`
 
   body {
     background-color: #181818;
+    scrollbar-width: thin;
+    scrollbar-color: #333 transparent;  
+  }
+
+  body::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  body::-webkit-scrollbar-thumb {
+    background-color: #333;
+    border-radius: 6px;
   }
 
   button {
