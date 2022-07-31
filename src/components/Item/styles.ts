@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const Container = styled.li`
-  padding: 1rem 0.625rem;
+  /* padding: 1rem 0.625rem; */
   border-radius: 4px;
   transition: all 0.1s ease-out;
 
@@ -14,6 +14,7 @@ export const Container = styled.li`
     justify-content: space-between;
     align-items: center;
     text-decoration: none;
+    padding: 1rem 0.625rem;
     color: rgba(255, 255, 255, 0.6);
   }
 
